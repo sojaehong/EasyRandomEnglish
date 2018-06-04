@@ -14,6 +14,17 @@
       "koreanQuestion": "어떤 요리인가요?",
       "englishQuestion": "What /kind /of /dish /is /it? ",
       "answer": "What kind of dish is it? "
+    },
+    {
+      "koreanQuestion": "금연석으로 원합니다.",
+      "englishQuestion": "I'd /like /to have /non-smoking /table ",
+      "answer": "I'd like to have non-smoking table. "
+    },
+    {
+      "koreanQuestion": "저쪽 테이블로 옮기고 싶어요.",
+      "englishQuestion": "Could /we /move /to /that /table ",
+      "answer": "Could we move to that table "
     }
+
   ]
 }

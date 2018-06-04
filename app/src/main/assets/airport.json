@@ -12,8 +12,18 @@
     },
     {
       "koreanQuestion": "도착시간은 언제입니까?",
-      "englishQuestion": "What /is the /arrival /time? ",
+      "englishQuestion": "What /is /the /arrival /time? ",
       "answer": "What is the arrival time? "
+    },
+    {
+      "koreanQuestion": "이 짐을 보내고 싶습니다.",
+      "englishQuestion": "I /want /to /check /this /baggage ",
+      "answer": "I want to check this baggage "
+    },
+    {
+      "koreanQuestion": "그것은 깨지기 쉽습니다.",
+      "englishQuestion": "It's /fragile ",
+      "answer": "It's fragile "
     }
   ]
 }

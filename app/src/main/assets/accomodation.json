@@ -14,6 +14,21 @@
       "koreanQuestion": "1박에 얼마인가요?",
       "englishQuestion": "How /much /is /it /per /night? ",
       "answer": "How much is it per night? "
+    },
+    {
+      "koreanQuestion": "아침이 포함됩니까?",
+      "englishQuestion": "is /breakfast /included? ",
+      "answer": "is breakfast included? "
+    },
+    {
+      "koreanQuestion": "조금 깍아 주시겠어요?",
+      "englishQuestion": "can /you /offer /me /any /discount? ",
+      "answer": "can you offer me any discount? "
+    },
+    {
+      "koreanQuestion": "그방을 볼 수 있을까요?",
+      "englishQuestion": "could /I /see /the /room? ",
+      "answer": "could I see the room? "
     }
   ]
 }

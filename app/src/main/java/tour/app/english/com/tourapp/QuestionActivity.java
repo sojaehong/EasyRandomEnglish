@@ -1,6 +1,7 @@
 package tour.app.english.com.tourapp;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.AudioManager;
@@ -26,10 +27,9 @@ public class QuestionActivity extends AppCompatActivity{
     private String answer;
 
     private int click = 0;
-    private TextView textview, OxText;
+    private TextView textview;
 
-    private LinearLayout questionlayout, checklaout;
-    private Button  checkButton;
+    private LinearLayout questionlayout;
     private FragmentManager fm;
 
     //프로그레스바 코드
@@ -38,6 +38,8 @@ public class QuestionActivity extends AppCompatActivity{
     private BackgroundTask task;
     private int value;
     //
+
+    private List<String> savesplit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +50,6 @@ public class QuestionActivity extends AppCompatActivity{
 
         englishQuestion = intent.getStringExtra("englishQuestion");
         answer = intent.getStringExtra("answer");
-
-        checklaout = findViewById(R.id.check_layout);
-        checklaout.setVisibility(View.GONE);
-
-        OxText = findViewById(R.id.oxtext);
 
         textview = findViewById(R.id.inputtext);
 
@@ -71,45 +68,10 @@ public class QuestionActivity extends AppCompatActivity{
 
         task = new BackgroundTask();
         task.execute(100);
-
-        //정답확인 하기
-        checkButton = findViewById(R.id.checkButton);
-        checkButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                task.cancel(true);
-                checklaout.setVisibility(View.VISIBLE);
-                if (input_text.equals(answer)) {
-                    OxText.setText("정답입니다.");
-                } else {
-                    OxText.setText("틀렸습니다.");
-                }
-            }
-        });
-        //다시하기
-        final Button retryButton = findViewById(R.id.quastion_retry_button);
-        retryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = getIntent();
-                finish();
-                startActivity(intent);
-            }
-        });
-        final Button anotherButton = findViewById(R.id.quastion_list_button);
-        anotherButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = getIntent();
-                finish();
-            }
-        });
     }
 
     //하단에 버튼 랜덤으로 뿌려주기
     public void createbutton() {
-        List<String> savesplit;
 
         LinearLayout qbuttonlayout1 = findViewById(R.id.qbuttonLayout1);
         LinearLayout qbuttonlayout2 = findViewById(R.id.qbuttonLayout2);
@@ -137,11 +99,17 @@ public class QuestionActivity extends AppCompatActivity{
                         input_text += btn.getText();
                         textview.setText(input_text);
                         click++;
-
                     } else {
                         if (!textview.getText().toString().contains(btn.getText().toString())) {
                             input_text += btn.getText();
                             textview.setText(input_text);
+                            click++;
+
+                            if (click == savesplit.size()){
+                                task.cancel(true);
+                                confirmDialog(QuestionActivity.this);
+                            }
+
                         }
                     }
                 }
@@ -149,16 +117,42 @@ public class QuestionActivity extends AppCompatActivity{
         }
     }
 
+    private void confirmDialog(Context context) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+        dialog.setTitle("정답 확인.");
+        final TextView textView = new TextView(context);
+        if (input_text.equals(answer)) {
+            textView.setText("정답입니다.");
+        } else {
+            textView.setText("틀렸습니다.");
+        }
+        dialog.setView(textView);
+        dialog.setPositiveButton("다시 풀기", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                Intent intent = getIntent();
+                finish();
+                startActivity(intent);
+            }
+        });
+        dialog.setNegativeButton("다른 문제", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                Intent intent = getIntent();
+                finish();
+            }
+        });
+        dialog.show();
+    }
+
     class BackgroundTask extends AsyncTask<Integer, Integer, Integer> {
 
         ImageView timeoutimage = findViewById(R.id.timeoutimage);
 
-        SoundPool soundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
+        SoundPool soundPool = new SoundPool(savesplit.size() + 5, AudioManager.STREAM_MUSIC, 0);
         int SoundId = soundPool.load(QuestionActivity.this, R.raw.timeoutsound, 1);
 
         @Override
         protected void onPreExecute() {
-            value = 10;
+            value = savesplit.size() + 5;
             progressBar.setProgress(value);
         }
 

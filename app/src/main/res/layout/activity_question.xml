@@ -119,44 +119,7 @@
                 </LinearLayout>
 
             </LinearLayout>
-            //정답확인
 
-            <Button
-                android:id="@+id/checkButton"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="정답확인" />
-            //정답확인 레이아웃
-
-            <LinearLayout
-                android:id="@+id/check_layout"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:background="#757575">
-
-                <TextView
-                    android:id="@+id/oxtext"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="정답입니다."
-                    android:textColor="#ffffff"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
-
-                <Button
-                    android:id="@+id/quastion_list_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="다른 문제"
-
-                    />
-
-                <Button
-                    android:id="@+id/quastion_retry_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="다시 풀기" />
-            </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>
