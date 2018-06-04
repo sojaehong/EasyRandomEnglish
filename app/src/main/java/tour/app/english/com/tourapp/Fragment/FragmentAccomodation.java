@@ -6,101 +6,70 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
-import tour.app.english.com.tourapp.PutGetCategories;
-import tour.app.english.com.tourapp.PutGetSentences;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
+import tour.app.english.com.tourapp.Adapter.FragmentListAdapter;
+import tour.app.english.com.tourapp.GetJsonData;
 import tour.app.english.com.tourapp.QuestionActivity;
 import tour.app.english.com.tourapp.R;
+import tour.app.english.com.tourapp.VO.QuestionVO;
 
 
 public class FragmentAccomodation extends Fragment {
-    Button question1, question2, question3;
-    LinearLayout layout;
-
-    PutGetCategories putGetCategories = new PutGetCategories();
-    PutGetSentences putGetSentences = new PutGetSentences();
+    private ListView listView;
+    private FragmentListAdapter fragmentListAdapter;
+    private ArrayList<QuestionVO> list;
 
     @Override
-    public View onCreateView(
-            LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_accomodation, null);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_accomodation, null);
 
-        question1 = view.findViewById(R.id.accQ1);
-        question2 = view.findViewById(R.id.accQ2);
-        question3 = view.findViewById(R.id.accQ3);
+        //json 파일 파싱해서 리스트에 담아줌
+        try {
+            list = getJsonItem();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
-        layout = view.findViewById(R.id.layout_fragment_question_accomodation);
+        //listview에 리스트 어댑터 셋팅
+        listView = view.findViewById(R.id.list_view_accomodation);
+        fragmentListAdapter = new FragmentListAdapter(getContext(),R.layout.fragment_list_item,list);
+        listView.setAdapter(fragmentListAdapter);
 
-        question1.setOnClickListener(new View.OnClickListener() {
+        //리스트 아이템 클릭 리스너
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-
-                Intent intent1 = new Intent(getActivity(), QuestionActivity.class);
-                putGetCategories.putCategories();
-
-                String category = putGetCategories.getCategory(1);
-                putGetSentences.putsentece(category);
-
-                String englishQuestion = putGetSentences.getEnglishSentence(category, 0);
-                String korean = putGetSentences.getKoreanSentence(category, 0);
-                String answercheck = putGetSentences.getAnserCheck(category, 0);
-
-                intent1.putExtra("Category", category);
-                intent1.putExtra("Question", englishQuestion);
-                intent1.putExtra("Korean", korean);
-                intent1.putExtra("Answercheck", answercheck);
-
-                startActivity(intent1);
-            }
-        });
-
-        question2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent1 = new Intent(getActivity(), QuestionActivity.class);
-
-                putGetCategories.putCategories();
-
-                String category = putGetCategories.getCategory(1);
-                putGetSentences.putsentece(category);
-
-                String englishQuestion = putGetSentences.getEnglishSentence(category, 1);
-                String korean = putGetSentences.getKoreanSentence(category, 1);
-                String answercheck = putGetSentences.getAnserCheck(category, 1);
-
-                intent1.putExtra("Category", category);
-                intent1.putExtra("Question", englishQuestion);
-                intent1.putExtra("Korean", korean);
-                intent1.putExtra("Answercheck", answercheck);
-
-                startActivity(intent1);
-            }
-        });
-
-        question3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent1 = new Intent(getActivity(), QuestionActivity.class);
-                putGetCategories.putCategories();
-
-                String category = putGetCategories.getCategory(1);
-                putGetSentences.putsentece(category);
-
-                String englishQuestion = putGetSentences.getEnglishSentence(category, 2);
-                String korean = putGetSentences.getKoreanSentence(category, 2);
-                String answercheck = putGetSentences.getAnserCheck(category, 2);
-
-                intent1.putExtra("Category", category);
-                intent1.putExtra("Question", englishQuestion);
-                intent1.putExtra("Korean", korean);
-                intent1.putExtra("Answercheck", answercheck);
-
-                startActivity(intent1);
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getActivity(), QuestionActivity.class);
+                intent.putExtra("englishQuestion", list.get(position).getEnglishQuestion());
+                intent.putExtra("answer", list.get(position).getAnswer());
+                startActivity(intent);
             }
         });
 
         return view;
+    }
+
+    private ArrayList<QuestionVO> getJsonItem() throws JSONException {
+        ArrayList<QuestionVO> list = new ArrayList<>();
+        JSONObject jsonObject = new GetJsonData().getJsonObject(getContext(), "accomodation.json");
+        JSONArray jsonArray = new JSONArray(jsonObject.getString("accomodation"));
+
+        for(int i = 0; i < jsonArray.length(); i++){
+            QuestionVO questionVO = new QuestionVO();
+            questionVO.setKoreanQuestion(jsonArray.getJSONObject(i).getString("koreanQuestion"));
+            questionVO.setEnglishQuestion(jsonArray.getJSONObject(i).getString("englishQuestion"));
+            questionVO.setAnswer(jsonArray.getJSONObject(i).getString("answer"));
+            list.add(questionVO);
+        }
+
+        return list;
     }
 }

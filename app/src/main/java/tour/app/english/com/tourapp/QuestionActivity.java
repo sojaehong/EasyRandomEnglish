@@ -18,27 +18,25 @@ import android.widget.TextView;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
-public class QuestionActivity extends AppCompatActivity {
+public class QuestionActivity extends AppCompatActivity{
 
-    String input_text = "";
-    String Category;
-    String question;
-    int click = 0;
-    TextView textview, OxText;
+    private String input_text = "";
+    private String englishQuestion;
+    private String answer;
 
-    String answer1;
+    private int click = 0;
+    private TextView textview, OxText;
 
-    LinearLayout questionlayout, checklaout;
-    Button  checkButton;
-    FragmentManager fm;
+    private LinearLayout questionlayout, checklaout;
+    private Button  checkButton;
+    private FragmentManager fm;
 
     //프로그레스바 코드
-    ProgressBar progressBar;
-    TextView timertxt;
-    BackgroundTask task;
-    int value;
+    private ProgressBar progressBar;
+    private TextView timertxt;
+    private BackgroundTask task;
+    private int value;
     //
 
     @Override
@@ -46,11 +44,10 @@ public class QuestionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question);
 
-        Intent getIntent = getIntent();
+        Intent intent = getIntent();
 
-        Category = getIntent.getStringExtra("Category");
-        question = getIntent.getStringExtra("Question");
-        answer1 = getIntent.getStringExtra("Answercheck");
+        englishQuestion = intent.getStringExtra("englishQuestion");
+        answer = intent.getStringExtra("answer");
 
         checklaout = findViewById(R.id.check_layout);
         checklaout.setVisibility(View.GONE);
@@ -83,7 +80,7 @@ public class QuestionActivity extends AppCompatActivity {
 
                 task.cancel(true);
                 checklaout.setVisibility(View.VISIBLE);
-                if (input_text.equals(answer1)) {
+                if (input_text.equals(answer)) {
                     OxText.setText("정답입니다.");
                 } else {
                     OxText.setText("틀렸습니다.");
@@ -112,16 +109,13 @@ public class QuestionActivity extends AppCompatActivity {
 
     //하단에 버튼 랜덤으로 뿌려주기
     public void createbutton() {
-
-
         List<String> savesplit;
-        LinearLayout linearLayout = findViewById(R.id.buttonlayout);
 
         LinearLayout qbuttonlayout1 = findViewById(R.id.qbuttonLayout1);
         LinearLayout qbuttonlayout2 = findViewById(R.id.qbuttonLayout2);
 
         SplitSentence splitSentence = new SplitSentence();
-        String inputquestion = question;
+        String inputquestion = englishQuestion;
         savesplit = splitSentence.splitString(inputquestion);
 
         Collections.shuffle(savesplit);

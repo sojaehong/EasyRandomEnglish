@@ -1,0 +1,19 @@
+{
+  "airport": [
+    {
+      "koreanQuestion": "뉴욕행 비행기를 예약하고 싶어요",
+      "englishQuestion": "I'd /like /to book /a flight /to NewYork ",
+      "answer": "I'd like to book a flight to NewYork "
+    },
+    {
+      "koreanQuestion": "예약을 변경하고 싶어요.",
+      "englishQuestion": "I'd /like /to change /my reservation ",
+      "answer": "I'd like to change my reservation "
+    },
+    {
+      "koreanQuestion": "도착시간은 언제입니까?",
+      "englishQuestion": "What /is the /arrival /time? ",
+      "answer": "What is the arrival time? "
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "accomodation": [
+    {
+      "koreanQuestion": "예약을 하고 싶습니다.",
+      "englishQuestion": "I'd /like /to make /a reservation ",
+      "answer": "I'd like to make a reservation "
+    },
+    {
+      "koreanQuestion": "빈 방 있나요?",
+      "englishQuestion": "Is /there /a room /available? ",
+      "answer": "Is there a room available? "
+    },
+    {
+      "koreanQuestion": "1박에 얼마인가요?",
+      "englishQuestion": "How /much /is /it /per /night? ",
+      "answer": "How much is it per night? "
+    }
+  ]
+}
