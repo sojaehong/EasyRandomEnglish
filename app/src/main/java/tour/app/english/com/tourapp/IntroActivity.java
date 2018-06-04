@@ -24,7 +24,7 @@ public class IntroActivity extends AppCompatActivity {
         layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(IntroActivity.this, CategoryActivity.class);
+                Intent intent = new Intent(IntroActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });

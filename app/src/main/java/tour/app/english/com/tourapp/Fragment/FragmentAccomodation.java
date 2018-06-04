@@ -1,4 +1,4 @@
-package tour.app.english.com.tourapp;
+package tour.app.english.com.tourapp.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,27 +9,23 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import tour.app.english.com.tourapp.PutGetCategories;
+import tour.app.english.com.tourapp.PutGetSentences;
+import tour.app.english.com.tourapp.QuestionActivity;
+import tour.app.english.com.tourapp.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link Fragment_accomodation.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link Fragment_accomodation#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class Fragment_accomodation extends Fragment {
+
+public class FragmentAccomodation extends Fragment {
     Button question1, question2, question3;
     LinearLayout layout;
 
-    QuestionData questionData = new QuestionData();
     PutGetCategories putGetCategories = new PutGetCategories();
     PutGetSentences putGetSentences = new PutGetSentences();
 
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_fragment_accomodation, null);
+        final View view = inflater.inflate(R.layout.fragment_accomodation, null);
 
         question1 = view.findViewById(R.id.accQ1);
         question2 = view.findViewById(R.id.accQ2);

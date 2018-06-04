@@ -1,4 +1,4 @@
-package tour.app.english.com.tourapp;
+package tour.app.english.com.tourapp.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,19 +9,23 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-public class Fragment_airport extends Fragment {
+import tour.app.english.com.tourapp.PutGetCategories;
+import tour.app.english.com.tourapp.PutGetSentences;
+import tour.app.english.com.tourapp.QuestionActivity;
+import tour.app.english.com.tourapp.R;
+
+public class FragmentAirport extends Fragment {
 
     Button question1, question2, question3;
     LinearLayout layout;
 
-    QuestionData questionData = new QuestionData();
     PutGetCategories putGetCategories = new PutGetCategories();
     PutGetSentences putGetSentences = new PutGetSentences();
 
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_fragment_airport, null);
+        final View view = inflater.inflate(R.layout.fragment_airport, null);
 
         question1 = view.findViewById(R.id.airQ1);
         question2 = view.findViewById(R.id.airQ2);

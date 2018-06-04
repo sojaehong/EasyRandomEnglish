@@ -25,14 +25,13 @@ public class QuestionActivity extends AppCompatActivity {
     String input_text = "";
     String Category;
     String question;
-    Map<String, List<Map<String, String>>> questionTest;
     int click = 0;
     TextView textview, OxText;
 
     String answer1;
 
     LinearLayout questionlayout, checklaout;
-    Button airport, hotel, restaurant, checkButton;
+    Button  checkButton;
     FragmentManager fm;
 
     //프로그레스바 코드
@@ -68,9 +67,6 @@ public class QuestionActivity extends AppCompatActivity {
 
         ImageView timeoutimage = findViewById(R.id.timeoutimage);
         timeoutimage.setVisibility(View.GONE);
-
-//        ImageView backgroundimg = findViewById(R.id.background);
-//        backgroundimg.setVisibility(View.VISIBLE);
 
         //프로그레스바 코드
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -162,13 +158,9 @@ public class QuestionActivity extends AppCompatActivity {
     class BackgroundTask extends AsyncTask<Integer, Integer, Integer> {
 
         ImageView timeoutimage = findViewById(R.id.timeoutimage);
-//        ImageView backgroundimg = findViewById(R.id.background);
-
 
         SoundPool soundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
         int SoundId = soundPool.load(QuestionActivity.this, R.raw.timeoutsound, 1);
-
-        LinearLayout fragmentlayout = findViewById(R.id.layout_fragment_question);
 
         @Override
         protected void onPreExecute() {
@@ -205,10 +197,9 @@ public class QuestionActivity extends AppCompatActivity {
         protected void onPostExecute(Integer integer) {
             progressBar.setProgress(0);
             timertxt.setText("시간초과!");
-//            backgroundimg.setVisibility(View.GONE);
+
             timeoutimage.setVisibility(View.VISIBLE);
             soundPool.play(SoundId, 3f, 3f, 0, 0, 1f);
-            LinearLayout linearLayout = findViewById(R.id.timerlayout);
             AlertDialog.Builder builder = new AlertDialog.Builder(QuestionActivity.this);
             builder.setTitle("시간초과 알림창");
             builder.setMessage("조금 더 분발하세요");
@@ -218,7 +209,7 @@ public class QuestionActivity extends AppCompatActivity {
                     soundPool.stop(SoundId);
                     moveTaskToBack(true);
 
-                    Intent intent = new Intent(QuestionActivity.this, CategoryActivity.class);
+                    Intent intent = new Intent(QuestionActivity.this, MainActivity.class);
                     startActivity(intent);
 
                 }
